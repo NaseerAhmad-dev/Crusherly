@@ -1,0 +1,21 @@
+<div class="page-header">
+  <h1>Audit Log</h1>
+</div>
+
+<app-filter-bar>
+  <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="audit-filters">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Action</mat-label>
+      <input matInput formControlName="action" placeholder="e.g. LOGIN" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Resource type</mat-label>
+      <input matInput formControlName="resource_type" placeholder="e.g. user" />
+    </mat-form-field>
+    <button mat-stroked-button type="submit">Apply</button>
+  </form>
+</app-filter-bar>
+
+<app-data-table [columns]="columns" [rows]="rows()" [loading]="loading()" emptyMessage="No audit events found." />
+
+<app-pagination [page]="page()" [pageSize]="pageSize()" [totalItems]="totalItems()" (pageChange)="onPageChange($event)" />

@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>New Tenant</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-dialog">
+    <mat-form-field appearance="outline">
+      <mat-label>Company name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Code</mat-label>
+      <input matInput formControlName="code" placeholder="e.g. ABC" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Slug</mat-label>
+      <input matInput formControlName="slug" placeholder="e.g. abc-stone-crushers" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Timezone</mat-label>
+      <input matInput formControlName="timezone" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Currency</mat-label>
+      <input matInput formControlName="currency" />
+    </mat-form-field>
+
+    <h3>First Tenant Admin</h3>
+    <mat-form-field appearance="outline">
+      <mat-label>Admin email</mat-label>
+      <input matInput type="email" formControlName="admin_email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Admin password</mat-label>
+      <input matInput type="password" formControlName="admin_password" autocomplete="new-password" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Admin first name</mat-label>
+      <input matInput formControlName="admin_first_name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Admin last name</mat-label>
+      <input matInput formControlName="admin_last_name" />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="saving()">Create</button>
+  </mat-dialog-actions>
+</form>

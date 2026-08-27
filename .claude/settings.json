@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(.venv/Scripts/python.exe -m alembic revision --autogenerate -m \"phase 1: master data foundation\")",
+      "Bash(.venv/Scripts/python.exe -m black alembic/env.py alembic/versions/eb5e1b204e45_phase_1_master_data_foundation.py)"
+    ]
+  }
+}

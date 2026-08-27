@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1>Tenants</h1>
+  @if (auth.hasPermission('tenants.create')) {
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      New Tenant
+    </button>
+  }
+</div>
+
+<app-data-table [columns]="columns" [rows]="rows()" [loading]="loading()" emptyMessage="No tenants found.">
+  <ng-template #cell let-row let-column="column">
+    @if (column === 'status') {
+      <app-status-badge [status]="row.status" />
+    } @else {
+      {{ $any(row)[column] }}
+    }
+  </ng-template>
+  <ng-template #actions let-row>
+    @if (auth.hasPermission('tenants.update') && row.status !== 'SUSPENDED') {
+      <button mat-icon-button (click)="suspend(row); $event.stopPropagation()" aria-label="Suspend tenant">
+        <mat-icon>block</mat-icon>
+      </button>
+    }
+  </ng-template>
+</app-data-table>
+
+<app-pagination
+  [page]="page()"
+  [pageSize]="pageSize()"
+  [totalItems]="totalItems()"
+  (pageChange)="onPageChange($event)"
+/>

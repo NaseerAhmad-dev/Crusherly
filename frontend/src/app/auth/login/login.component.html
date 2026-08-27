@@ -1,0 +1,60 @@
+<div class="login">
+  <div class="login__brand-panel">
+    <div class="login__brand-mark">
+      <mat-icon>terrain</mat-icon>
+    </div>
+    <h1 class="login__brand-title">Stone Crusher</h1>
+    <p class="login__brand-subtitle">Management Platform</p>
+    <p class="login__brand-tagline">
+      Operations, tenancy, and workforce control for stone crushing &amp; aggregate businesses.
+    </p>
+  </div>
+
+  <div class="login__form-panel">
+    <mat-card class="login__card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Sign in</mat-card-title>
+        <mat-card-subtitle>Enter your credentials to continue</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        @if (sessionExpired) {
+          <p class="login__notice">Your session expired. Please sign in again.</p>
+        }
+        @if (errorMessage(); as error) {
+          <p class="login__error">{{ error }}</p>
+        }
+
+        <form [formGroup]="form" (ngSubmit)="submit()" class="login__form">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" autocomplete="username" />
+            <mat-icon matSuffix>mail_outline</mat-icon>
+            @if (form.controls.email.invalid && form.controls.email.touched) {
+              <mat-error>A valid email is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" autocomplete="current-password" />
+            <mat-icon matSuffix>lock_outline</mat-icon>
+            @if (form.controls.password.invalid && form.controls.password.touched) {
+              <mat-error>Password is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" type="submit" [disabled]="submitting()" class="login__submit">
+            @if (submitting()) {
+              <mat-spinner diameter="20" />
+            } @else {
+              Sign in
+            }
+          </button>
+        </form>
+
+        <a routerLink="/forgot-password" class="login__forgot">Forgot your password?</a>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

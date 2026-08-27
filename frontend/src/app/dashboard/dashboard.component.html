@@ -1,0 +1,28 @@
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p class="page-header__subtitle">A snapshot of your operation right now.</p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <app-loading-state message="Loading dashboard…" />
+  } @else if (error()) {
+    <app-error-state message="Could not load the dashboard." (retry)="load()" />
+  } @else {
+    <div class="dashboard-grid">
+      @for (card of cards(); track card.label) {
+        <mat-card class="dashboard-grid__card" appearance="outlined">
+          <div class="icon-avatar" [class]="'icon-avatar--' + card.tone">
+            <mat-icon>{{ card.icon }}</mat-icon>
+          </div>
+          <div class="dashboard-grid__body">
+            <div class="dashboard-grid__value">{{ card.value }}</div>
+            <div class="dashboard-grid__label">{{ card.label }}</div>
+          </div>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

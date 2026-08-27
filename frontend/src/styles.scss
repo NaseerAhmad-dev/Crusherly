@@ -1,0 +1,153 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+@use './styles/theme-colors' as theme;
+
+// Custom industrial palette generated via `ng generate @angular/material:theme-color` from a
+// graphite/steel primary (#37474F) and a safety-amber tertiary (#E8871E) — see
+// src/styles/theme-colors.scss. Deliberately not the Material default azure/blue: this is an
+// operations tool for a heavy-industry business, not a generic consumer app.
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        theme-type: light,
+        primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette,
+      ),
+      typography: (
+        plain-family: Inter,
+        brand-family: Inter,
+      ),
+      density: 0,
+    )
+  );
+
+  // Custom brand tokens not covered by Material's system variables — used for the sidenav
+  // (a dark, branded surface rather than a plain white panel) and status accents shared across
+  // list/badge components.
+  --app-sidenav-bg: #1f2933;
+  --app-sidenav-fg: rgba(255, 255, 255, 0.87);
+  --app-sidenav-fg-muted: rgba(255, 255, 255, 0.6);
+  --app-sidenav-active-bg: rgba(232, 135, 30, 0.16);
+  --app-sidenav-active-fg: #ffb77a;
+  --app-sidenav-border: rgba(255, 255, 255, 0.08);
+
+  --app-status-success: #2e7d32;
+  --app-status-success-bg: #e8f5e9;
+  --app-status-warning: #b26300;
+  --app-status-warning-bg: #fff3e0;
+  --app-status-danger: #ba1a1a;
+  --app-status-danger-bg: #ffedea;
+  --app-status-info: #1a56c4;
+  --app-status-info-bg: #e8f0fe;
+  --app-status-neutral: #5e5e5f;
+  --app-status-neutral-bg: #f2f0f0;
+
+  --app-space-1: 4px;
+  --app-space-2: 8px;
+  --app-space-3: 16px;
+  --app-space-4: 24px;
+  --app-space-5: 32px;
+  --app-radius: 10px;
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface-container-low, var(--mat-sys-surface));
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+// Shared layout utility classes used across feature screens (users/roles/tenants/settings/...)
+// so each one doesn't redefine the same "title + action button" header or dialog form spacing.
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--app-space-3);
+  max-width: 1200px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--app-space-3);
+
+  h1 {
+    margin: 0;
+    font: var(--mat-sys-headline-small);
+  }
+}
+
+.page-header__subtitle {
+  margin: 4px 0 0;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-medium);
+}
+
+.page-card {
+  border-radius: var(--app-radius);
+  overflow: hidden;
+}
+
+.form-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 320px;
+}
+
+// A small colored circular icon badge used on dashboard/summary cards so each metric reads at a
+// glance instead of every card looking identical (see dashboard.component and status-badge).
+.icon-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  mat-icon {
+    font-size: 22px;
+    width: 22px;
+    height: 22px;
+  }
+
+  &--primary {
+    background: var(--mat-sys-primary-container);
+    color: var(--mat-sys-on-primary-container);
+  }
+
+  &--accent {
+    background: var(--mat-sys-tertiary-container);
+    color: var(--mat-sys-on-tertiary-container);
+  }
+
+  &--success {
+    background: var(--app-status-success-bg);
+    color: var(--app-status-success);
+  }
+}

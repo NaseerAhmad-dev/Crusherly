@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>New Weighbridge Ticket</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-dialog">
+    <mat-form-field appearance="outline">
+      <mat-label>Ticket type</mat-label>
+      <mat-select formControlName="ticket_type">
+        @for (type of ticketTypes; track type) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Plant</mat-label>
+      <mat-select formControlName="organization_unit_id">
+        <mat-option value="">Tenant-wide (no specific plant)</mat-option>
+        @for (unit of organizationUnits(); track unit.id) {
+          <mat-option [value]="unit.id">{{ unit.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Vehicle number</mat-label>
+      <input matInput formControlName="vehicle_number" placeholder="e.g. JK01AB1234" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Driver name</mat-label>
+      <input matInput formControlName="driver_name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Party name</mat-label>
+      <input matInput formControlName="party_name" placeholder="Customer or supplier" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Material</mat-label>
+      <input matInput formControlName="material_description" placeholder="e.g. 40mm aggregate" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Unit</mat-label>
+      <mat-select formControlName="unit_id">
+        @for (unit of units(); track unit.id) {
+          <mat-option [value]="unit.id">{{ unit.name }} ({{ unit.symbol }})</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>First weight</mat-label>
+      <input matInput formControlName="first_weight" placeholder="e.g. 12000.500" />
+      @if (form.controls.first_weight.invalid && form.controls.first_weight.touched) {
+        <mat-error>Enter a positive number (up to 3 decimal places).</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Remarks</mat-label>
+      <input matInput formControlName="remarks" />
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="saving()">Create</button>
+  </mat-dialog-actions>
+</form>

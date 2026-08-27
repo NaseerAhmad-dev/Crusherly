@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>Production</h1>
+  @if (auth.hasPermission('production.create')) {
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      New Entry
+    </button>
+  }
+</div>
+
+<app-data-table [columns]="columns" [rows]="rows()" [loading]="loading()" emptyMessage="No production entries found.">
+  <ng-template #cell let-row let-column="column">
+    @if (column === 'status') {
+      <app-status-badge [status]="row.status" />
+    } @else if (column === 'outputs') {
+      {{ outputsSummary(row) }}
+    } @else {
+      {{ $any(row)[column] }}
+    }
+  </ng-template>
+  <ng-template #actions let-row>
+    @if (auth.hasPermission('production.update') && row.status === 'DRAFT') {
+      <button mat-icon-button (click)="submit(row); $event.stopPropagation()" aria-label="Submit entry">
+        <mat-icon>check_circle</mat-icon>
+      </button>
+    }
+    @if (auth.hasPermission('production.update') && row.status !== 'CANCELLED') {
+      <button mat-icon-button (click)="cancel(row); $event.stopPropagation()" aria-label="Cancel entry">
+        <mat-icon>block</mat-icon>
+      </button>
+    }
+  </ng-template>
+</app-data-table>
+
+<app-pagination
+  [page]="page()"
+  [pageSize]="pageSize()"
+  [totalItems]="totalItems()"
+  (pageChange)="onPageChange($event)"
+/>

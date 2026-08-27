@@ -1,0 +1,41 @@
+<div class="page-header">
+  <h1>Users</h1>
+  @if (auth.hasPermission('users.create')) {
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      New User
+    </button>
+  }
+</div>
+
+<app-search-box placeholder="Search users…" (searchChange)="onSearch($event)" />
+
+<app-data-table
+  [columns]="columns"
+  [rows]="rows()"
+  [loading]="loading()"
+  emptyMessage="No users found."
+  (rowClick)="openEditDialog($event)"
+>
+  <ng-template #cell let-row let-column="column">
+    @if (column === 'status') {
+      <app-status-badge [status]="row.status" />
+    } @else {
+      {{ $any(row)[column] }}
+    }
+  </ng-template>
+  <ng-template #actions let-row>
+    @if (auth.hasPermission('users.delete')) {
+      <button mat-icon-button (click)="deactivate(row); $event.stopPropagation()" aria-label="Deactivate user">
+        <mat-icon>block</mat-icon>
+      </button>
+    }
+  </ng-template>
+</app-data-table>
+
+<app-pagination
+  [page]="page()"
+  [pageSize]="pageSize()"
+  [totalItems]="totalItems()"
+  (pageChange)="onPageChange($event)"
+/>

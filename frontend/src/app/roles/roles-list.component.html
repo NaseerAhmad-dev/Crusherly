@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>Roles</h1>
+  @if (auth.hasPermission('roles.create')) {
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      New Role
+    </button>
+  }
+</div>
+
+<app-data-table
+  [columns]="columns"
+  [rows]="rows()"
+  [loading]="loading()"
+  emptyMessage="No roles found."
+  (rowClick)="openEditDialog($event)"
+>
+  <ng-template #actions let-row>
+    @if (auth.hasPermission('roles.delete') && !row.is_system) {
+      <button mat-icon-button (click)="delete(row); $event.stopPropagation()" aria-label="Delete role">
+        <mat-icon>delete</mat-icon>
+      </button>
+    }
+  </ng-template>
+</app-data-table>

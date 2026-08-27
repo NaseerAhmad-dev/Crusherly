@@ -1,0 +1,31 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--app-space-3);
+}
+
+.dashboard-grid__card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border-radius: var(--app-radius);
+}
+
+.dashboard-grid__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dashboard-grid__value {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.dashboard-grid__label {
+  color: var(--mat-sys-on-surface-variant);
+  font-size: 13px;
+}

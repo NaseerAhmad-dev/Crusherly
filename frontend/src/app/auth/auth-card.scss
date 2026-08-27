@@ -1,0 +1,40 @@
+// Shared by the standalone auth screens that don't need the full branded split-panel layout
+// used by login.component (forgot/reset password) — just a centered card.
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--mat-sys-surface-container-low, var(--mat-sys-surface));
+}
+
+.login__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.login__submit {
+  margin-top: 8px;
+  height: 44px;
+}
+
+.login__error {
+  color: var(--app-status-danger);
+  font-size: 13px;
+}
+
+.login__forgot {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--mat-sys-primary);
+}

@@ -1,0 +1,108 @@
+.login {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr);
+  min-height: 100vh;
+  background: var(--mat-sys-surface-container-low, var(--mat-sys-surface));
+
+  @media (max-width: 840px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.login__brand-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--app-space-5) 64px;
+  background: linear-gradient(160deg, #1f2933 0%, #37474f 65%, #4c5f6a 100%);
+  color: rgba(255, 255, 255, 0.92);
+
+  @media (max-width: 840px) {
+    padding: var(--app-space-4) var(--app-space-4) var(--app-space-3);
+    text-align: center;
+    align-items: center;
+  }
+}
+
+.login__brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(232, 135, 30, 0.18);
+  color: #ffb77a;
+  margin-bottom: var(--app-space-4);
+
+  mat-icon {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.login__brand-title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.login__brand-subtitle {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login__brand-tagline {
+  margin: var(--app-space-4) 0 0;
+  max-width: 380px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.login__form-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--app-space-4);
+}
+
+.login__card {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+.login__submit {
+  margin-top: 8px;
+  height: 44px;
+}
+
+.login__error {
+  color: var(--app-status-danger);
+  font-size: 13px;
+}
+
+.login__notice {
+  color: var(--app-status-warning);
+  font-size: 13px;
+}
+
+.login__forgot {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--mat-sys-primary);
+}

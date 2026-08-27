@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Complete Ticket {{ ticket.ticket_number }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-dialog">
+    <p>First weight recorded: <strong>{{ ticket.first_weight }}</strong></p>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Second weight</mat-label>
+      <input matInput formControlName="second_weight" placeholder="e.g. 4000.000" />
+      @if (form.controls.second_weight.invalid && form.controls.second_weight.touched) {
+        <mat-error>Enter a positive number (up to 3 decimal places).</mat-error>
+      }
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="saving()">Complete</button>
+  </mat-dialog-actions>
+</form>

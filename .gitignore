@@ -1,0 +1,133 @@
+# ---------------------------------------------------------------------------
+# Python / Backend
+# ---------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+.installed.cfg
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.python-version
+
+# Test / lint / type caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+nosetests.xml
+junit*.xml
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Local file storage (STORAGE_PROVIDER=local)
+backend/storage/
+
+# ---------------------------------------------------------------------------
+# Node / Frontend
+# ---------------------------------------------------------------------------
+node_modules/
+dist/
+build/
+out-tsc/
+bazel-out/
+.angular/
+coverage/
+.npm/
+.yarn/
+.pnp.*
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ---------------------------------------------------------------------------
+# Secrets / environment
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!*.env.example
+!.env.*.example
+*.pfx
+*.p12
+*.key
+*.pem
+*.cer
+*.crt
+secrets.json
+appsettings.*.local.json
+
+# ---------------------------------------------------------------------------
+# Infrastructure
+# ---------------------------------------------------------------------------
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+*.bicepparam.local
+
+# ---------------------------------------------------------------------------
+# Docker
+# ---------------------------------------------------------------------------
+docker-compose.override.yml
+*.pid
+
+# ---------------------------------------------------------------------------
+# Editors / IDEs
+# ---------------------------------------------------------------------------
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+.history/
+
+# ---------------------------------------------------------------------------
+# Claude Code (local-only settings; project settings.json IS committed)
+# ---------------------------------------------------------------------------
+.claude/settings.local.json
+.claude/*.local.json
+
+# ---------------------------------------------------------------------------
+# OS
+# ---------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---------------------------------------------------------------------------
+# Misc
+# ---------------------------------------------------------------------------
+*.orig
+*.rej
+*.bak
+*.tmp

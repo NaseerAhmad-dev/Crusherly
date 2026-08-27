@@ -1,0 +1,63 @@
+name: stone-crusher
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: stone-crusher-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-crusher}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-crusher_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-stone_crusher}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-crusher} -d ${POSTGRES_DB:-stone_crusher}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stone-crusher-backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-crusher}:${POSTGRES_PASSWORD:-crusher_dev_password}@postgres:5432/${POSTGRES_DB:-stone_crusher}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0) if urllib.request.urlopen('http://localhost:8000/health').status==200 else sys.exit(1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: stone-crusher-frontend
+    restart: unless-stopped
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "${FRONTEND_PORT:-4200}:4200"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+volumes:
+  postgres_data:

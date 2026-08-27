@@ -1,0 +1,47 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav mode="side" opened class="shell__sidenav">
+    <div class="shell__brand">
+      <div class="shell__brand-mark">
+        <mat-icon>terrain</mat-icon>
+      </div>
+      <span class="shell__brand-text">Stone Crusher</span>
+    </div>
+    <mat-nav-list class="shell__nav">
+      @for (item of visibleNavItems(); track item.path) {
+        <a
+          mat-list-item
+          [routerLink]="item.path"
+          routerLinkActive="shell__nav-item--active"
+          class="shell__nav-item"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+        </a>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="shell__toolbar">
+      <span class="shell__toolbar-title">Stone Crusher Management Platform</span>
+      <span class="shell__spacer"></span>
+      @if (currentUser(); as user) {
+        <button mat-button [matMenuTriggerFor]="userMenu" class="shell__user-trigger">
+          <mat-icon>account_circle</mat-icon>
+          {{ user.first_name }} {{ user.last_name }}
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <div class="shell__user-email" mat-menu-item disabled>{{ user.email }}</div>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Log out</span>
+          </button>
+        </mat-menu>
+      }
+    </mat-toolbar>
+
+    <main class="shell__content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

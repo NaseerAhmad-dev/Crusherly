@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h1>Settings</h1>
+</div>
+
+<div class="settings">
+  <div class="settings__lookup">
+    <mat-form-field appearance="outline">
+      <mat-label>Setting key</mat-label>
+      <input matInput [formControl]="keyControl" list="known-keys" placeholder="e.g. currency" />
+      <datalist id="known-keys">
+        @for (key of knownKeys; track key) {
+          <option [value]="key"></option>
+        }
+      </datalist>
+    </mat-form-field>
+    <button mat-stroked-button type="button" [disabled]="loading()" (click)="load()">Load</button>
+  </div>
+
+  @if (loaded()) {
+    <form [formGroup]="valueForm" (ngSubmit)="save()" class="settings__form">
+      <mat-form-field appearance="outline">
+        <mat-label>Value (JSON)</mat-label>
+        <textarea matInput rows="6" formControlName="value"></textarea>
+      </mat-form-field>
+      @if (jsonError(); as error) {
+        <p class="settings__error">{{ error }}</p>
+      }
+      <button mat-raised-button color="primary" type="submit" [disabled]="saving()">Save</button>
+    </form>
+  }
+</div>

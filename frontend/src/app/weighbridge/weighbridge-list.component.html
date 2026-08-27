@@ -1,0 +1,38 @@
+<div class="page-header">
+  <h1>Weighbridge</h1>
+  @if (auth.hasPermission('weighbridge.create')) {
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      New Ticket
+    </button>
+  }
+</div>
+
+<app-data-table [columns]="columns" [rows]="rows()" [loading]="loading()" emptyMessage="No weighbridge tickets found.">
+  <ng-template #cell let-row let-column="column">
+    @if (column === 'status') {
+      <app-status-badge [status]="row.status" />
+    } @else if (column === 'net_weight') {
+      {{ row.net_weight ?? '—' }}
+    } @else {
+      {{ $any(row)[column] }}
+    }
+  </ng-template>
+  <ng-template #actions let-row>
+    @if (auth.hasPermission('weighbridge.update') && row.status === 'OPEN') {
+      <button mat-icon-button (click)="openCompleteDialog(row); $event.stopPropagation()" aria-label="Complete ticket">
+        <mat-icon>scale</mat-icon>
+      </button>
+      <button mat-icon-button (click)="cancel(row); $event.stopPropagation()" aria-label="Cancel ticket">
+        <mat-icon>block</mat-icon>
+      </button>
+    }
+  </ng-template>
+</app-data-table>
+
+<app-pagination
+  [page]="page()"
+  [pageSize]="pageSize()"
+  [totalItems]="totalItems()"
+  (pageChange)="onPageChange($event)"
+/>

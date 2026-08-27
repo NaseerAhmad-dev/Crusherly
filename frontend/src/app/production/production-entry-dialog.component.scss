@@ -1,0 +1,13 @@
+.production-outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.production-outputs__row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 100px auto;
+  gap: 8px;
+  align-items: start;
+}

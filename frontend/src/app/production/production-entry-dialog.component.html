@@ -1,0 +1,95 @@
+<h2 mat-dialog-title>New Production Entry</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="form-dialog">
+    <mat-form-field appearance="outline">
+      <mat-label>Production date</mat-label>
+      <input matInput type="date" formControlName="production_date" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Shift</mat-label>
+      <mat-select formControlName="shift">
+        @for (shift of shifts; track shift) {
+          <mat-option [value]="shift">{{ shift }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Plant</mat-label>
+      <mat-select formControlName="organization_unit_id">
+        <mat-option value="">Tenant-wide (no specific plant)</mat-option>
+        @for (unit of organizationUnits(); track unit.id) {
+          <mat-option [value]="unit.id">{{ unit.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Raw material</mat-label>
+      <input matInput formControlName="raw_material_description" placeholder="e.g. Raw stone" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Raw material quantity</mat-label>
+      <input matInput formControlName="raw_material_quantity" placeholder="e.g. 20000.000" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Raw material unit</mat-label>
+      <mat-select formControlName="raw_material_unit_id">
+        @for (unit of units(); track unit.id) {
+          <mat-option [value]="unit.id">{{ unit.name }} ({{ unit.symbol }})</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Remarks</mat-label>
+      <input matInput formControlName="remarks" />
+    </mat-form-field>
+
+    <h3>Outputs</h3>
+    <div formArrayName="outputs" class="production-outputs">
+      @for (group of outputs.controls; track $index) {
+        <div [formGroupName]="$index" class="production-outputs__row">
+          <mat-form-field appearance="outline">
+            <mat-label>Product</mat-label>
+            <input matInput formControlName="product_description" placeholder="e.g. 40mm Aggregate" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input matInput formControlName="quantity" placeholder="e.g. 8000.000" />
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Unit</mat-label>
+            <mat-select formControlName="unit_id">
+              @for (unit of units(); track unit.id) {
+                <mat-option [value]="unit.id">{{ unit.symbol }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <button
+            mat-icon-button
+            type="button"
+            (click)="removeOutput($index)"
+            [disabled]="outputs.length === 1"
+            aria-label="Remove output"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+    <button mat-stroked-button type="button" (click)="addOutput()">
+      <mat-icon>add</mat-icon>
+      Add output
+    </button>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" [mat-dialog-close]="false">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="saving()">Create</button>
+  </mat-dialog-actions>
+</form>
